@@ -1,0 +1,31 @@
+.calculator {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    height: 400px;
+    justify-content: stretch;
+}
+
+.calculator .calculator-row {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.calculator button,
+.calculator .display {
+    flex: 1 1 0;
+}
+
+.display {
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+    background-color: beige;
+    font-size: 30px;
+    padding: 5px;
+}
