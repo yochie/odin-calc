@@ -70,7 +70,7 @@ function handleOperation(operation) {
 }
 
 function handleEqual() {
-    if (leftOperand === null || inputNumBuffer === "") {
+    if (currentOperator === null || leftOperand === null || inputNumBuffer === "") {
         return;
     }
 
