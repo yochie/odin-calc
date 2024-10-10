@@ -1,9 +1,9 @@
 let leftOperand = null;
 let rightOperand = null;
-let operator = null;
+let currentOperator = null;
 
 let display = document.querySelector(".display");
-let displayContent = "";
+let inputNumBuffer = "";
 
 let calculator = document.querySelector(".calculator");
 calculator.addEventListener("click", handleClick);
@@ -13,43 +13,96 @@ function handleClick(clickEvent) {
     let content = clickEvent.target.textContent;
     switch (clickEvent.target.className) {
         case "num-button":
-            numInput(+content);
+            handleNum(+content);
             break;
         case "decimal-button":
-            decimalInput();
+            handleDecimal();
             break;
         case "operation-button":
-            operationInput(content);
+            handleOperation(content);
             break;
         case "equal-button":
-            equalInput();
+            handleEqual();
             break;
         case "clear-button":
-            clearInput();
+            handleClear();
             break;
         case "back-button":
-            backInput();
+            handleBack();
             break;
         default:
             throw new Error("Unsupported button clicked");
     }
 }
 
-function numInput(num) {
-    displayContent += num;
-    updateDisplay();
-}
-
-function decimalInput() {
-    if(displayContent.includes(".")){
+function handleOperation(operation) {
+    //need at least one defined operand before we start processing second
+    if (inputNumBuffer === "" && leftOperand === null) {
         return;
     }
-    displayContent += ".";
-    updateDisplay();
+
+    //prevents reuse of previous result as left operand if you input some numbers before using operators
+    //while allowing left operand to persist when operation chaining or supplying right operand
+    if(leftOperand !== null && inputNumBuffer !== "" && currentOperator === null){
+        leftOperand = null;
+    }
+
+    //clean start
+    if (leftOperand === null) {
+        leftOperand = +inputNumBuffer;
+        currentOperator = operation;
+        inputNumBuffer = "";
+    } else {
+        //chained operator
+        if (currentOperator !== null) {
+            //do equals using previously set left operand and operator
+            handleEqual();
+
+            //set up current operator for next input
+            currentOperator = operation;
+        } else {
+            //reusing result of previous operation with new operator
+            currentOperator = operation;
+
+            handleEqual();
+        }
+    }
 }
 
-function updateDisplay() {
-    display.textContent = displayContent;
+function handleEqual() {
+    if (leftOperand === null || inputNumBuffer === "") {
+        return;
+    }
+
+    rightOperand = inputNumBuffer;
+
+    let result = operate(+leftOperand, +rightOperand, currentOperator);
+    updateDisplay(result);
+
+    leftOperand = result;
+
+    inputNumBuffer = "";
+
+    currentOperator = null;
+}
+
+function handleNum(num) {
+    inputNumBuffer += num;
+
+    updateDisplay(inputNumBuffer);
+}
+
+function handleDecimal() {
+    if (inputNumBuffer.includes(".")) {
+        return;
+    }
+
+    inputNumBuffer += ".";
+    updateDisplay(inputNumBuffer);
+}
+
+function updateDisplay(num) {
+    display.textContent = num;
 }
 
 function operate(left, right, operation) {
