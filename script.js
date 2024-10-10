@@ -1,3 +1,11 @@
+let leftOperand;
+let rightOperand;
+let operator;
+
+
+
+
+
 function add(a, b) {
     return a + b;
 }
