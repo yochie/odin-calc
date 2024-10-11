@@ -68,14 +68,15 @@ function handleOperation(operation) {
     }
 }
 
+//returns result of operation using currently set left operand, operator and input num as right operand
 function handleEqual() {
     if (currentOperator === null || leftOperand === null || inputNumBuffer === "") {
         return;
     }
 
-    rightOperand = inputNumBuffer;
+    rightOperand = +inputNumBuffer;
 
-    let result = operate(+leftOperand, +rightOperand, currentOperator);
+    let result = operate(leftOperand, rightOperand, currentOperator);
     updateDisplay(result);
 
     leftOperand = result;
