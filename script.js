@@ -133,13 +133,7 @@ function handleEqual() {
         currentOperator = null;
         return;
     }
-    let hasDecimals = result.toString().includes(".");
-    if (hasDecimals) {
-        let decimals = result.toString().split(".")[1];
-        if (decimals.length > MAX_DECIMALS) {
-            result = +result.toFixed(MAX_DECIMALS);
-        }
-    }
+    result = parseFloat(result.toFixed(MAX_DECIMALS));
     updateDisplay(result);
 
     leftOperand = result;
