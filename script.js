@@ -29,6 +29,10 @@ function handleClick(clickEvent) {
         case "back-button":
             handleBack();
             break;
+        case "calculator":
+        case "calculator-row":
+            //clicked background
+            break;
         default:
             throw new Error("Unsupported button clicked");
     }
