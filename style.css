@@ -44,6 +44,7 @@ button,
     font-family: "Seven Segment", sans-serif;
     font-size: 150%;
     display: flex;
+    text-align: right;
     align-items: flex-end;
     justify-content: right;
     background-color: #ACC3A6;
