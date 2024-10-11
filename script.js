@@ -36,31 +36,31 @@ function handleClick(clickEvent) {
 
 function handleOperation(operation) {
     //need at least one defined operand before we start processing second
-    if (inputNumBuffer === "" && leftOperand === null) {
+    if (!inputNumBuffer && !leftOperand) {
         return;
     }
 
-    //prevents reuse of previous result as left operand if you input some numbers before using operators
-    //while allowing left operand to persist when operation chaining or supplying right operand
-    if(leftOperand !== null && inputNumBuffer !== "" && currentOperator === null){
+    //prevents reuse of previous result as left operand if you input some numbers
+    //except when chaining operators
+    if(leftOperand && inputNumBuffer && !currentOperator){
         leftOperand = null;
     }
 
     //clean start
-    if (leftOperand === null) {
+    if (!leftOperand) {
         leftOperand = +inputNumBuffer;
         currentOperator = operation;
         inputNumBuffer = "";
     } else {
         //chained operator
-        if (currentOperator !== null) {
-            //do equals using previously set left operand and operator
+        if (currentOperator) {
+            //uses previously set left operand and operator
             handleEqual();
 
-            //set up current operator for next input
+            //set up current operator for next operation
             currentOperator = operation;
         } else {
-            //reusing result of previous operation with new operator
+            //reuses previous result with new operator
             currentOperator = operation;
 
             handleEqual();
