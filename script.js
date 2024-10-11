@@ -47,7 +47,7 @@ function handleClear() {
     updateDisplay("");
 }
 
-function handleBack(){
+function handleBack() {
     inputNumBuffer = inputNumBuffer.slice(0, -1);
     updateDisplay(inputNumBuffer);
 }
