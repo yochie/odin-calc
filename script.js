@@ -9,7 +9,6 @@ let calculator = document.querySelector(".calculator");
 calculator.addEventListener("click", handleClick);
 
 function handleClick(clickEvent) {
-    console.log(clickEvent);
     let content = clickEvent.target.textContent;
     switch (clickEvent.target.className) {
         case "num-button":
