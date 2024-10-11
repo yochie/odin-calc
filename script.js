@@ -11,6 +11,9 @@ let calculator = document.querySelector(".calculator");
 calculator.addEventListener("click", handleClick);
 
 function handleClick(clickEvent) {
+    if(clickEvent.target.localName !== "button"){
+        return;
+    }
     let content = clickEvent.target.textContent;
     switch (clickEvent.target.className) {
         case "num-button":
@@ -30,10 +33,6 @@ function handleClick(clickEvent) {
             break;
         case "back-button":
             handleBack();
-            break;
-        case "calculator":
-        case "calculator-row":
-            //clicked background
             break;
         default:
             throw new Error("Unsupported button clicked");
