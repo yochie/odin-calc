@@ -2,6 +2,7 @@ let leftOperand = null;
 let rightOperand = null;
 let currentOperator = null;
 const MAX_DECIMALS = 9;
+const DIV_BY_ZERO = new Error("You're such a bad boy.");
 
 let display = document.querySelector(".display");
 let inputNumBuffer = "";
@@ -93,8 +94,16 @@ function handleEqual() {
     }
 
     rightOperand = +inputNumBuffer;
-
-    let result = operate(leftOperand, rightOperand, currentOperator);
+    let result;
+    try {
+        result = operate(leftOperand, rightOperand, currentOperator);
+    } catch (e) {
+        updateDisplay(e.message);
+        leftOperand = null;
+        inputNumBuffer = "";
+        currentOperator = null;
+        return;
+    }
     let hasDecimals = result.toString().includes(".");
     if (hasDecimals) {
         let decimals = result.toString().split(".")[1];
@@ -158,5 +167,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if(b == 0){
+        throw DIV_BY_ZERO;
+    }
     return a / b;
 }
