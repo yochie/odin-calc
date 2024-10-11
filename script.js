@@ -34,6 +34,18 @@ function handleClick(clickEvent) {
     }
 }
 
+function handleClear() {
+    inputNumBuffer = "";
+    currentOperator = null;
+    leftOperand = null;
+    rightOperand = null;
+    updateDisplay("");
+}
+
+function handleBack(){
+
+}
+
 function handleOperation(operation) {
     //need at least one defined operand before we start processing second
     if (!inputNumBuffer && !leftOperand) {
@@ -42,7 +54,7 @@ function handleOperation(operation) {
 
     //prevents reuse of previous result as left operand if you input some numbers
     //except when chaining operators
-    if(leftOperand && inputNumBuffer && !currentOperator){
+    if (leftOperand && inputNumBuffer && !currentOperator) {
         leftOperand = null;
     }
 
