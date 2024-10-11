@@ -40,6 +40,36 @@ function handleClick(clickEvent) {
     }
 }
 
+document.addEventListener("keyup", handleKey);
+function handleKey(keyEvent) {
+    let key = keyEvent.key;
+    if(!isNaN(parseInt(key))){
+        handleNum(+key);
+    } else {
+        switch (key){
+            case ".":
+                handleDecimal();
+                break;
+            case "+":
+            case "-":
+            case "/":
+            case "*":
+                handleOperation(key);
+                break;
+            case "=":
+            case "Enter":
+                handleEqual();
+                break;
+            case "Escape":
+                handleClear();
+                break;
+            case "Backspace":
+                handleBack();
+                break;
+        }
+    }
+}
+
 function handleClear() {
     inputNumBuffer = "";
     currentOperator = null;
